@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>
+            qrcode-gen
+        </title>
+    </head>
+
+    <body>
+        Input the url: <input id="url" type="text"></input>
+        <button name="gen" onclick="gen_url()">gen</button>
+        <div id="show_qrcode" style=" position: fixed;top: 30%;left: 30%;">
+            <a>扫描二维码</a>
+            <div id="qrcode"></div>
+        </div>
+        <script src="/js/qrcode.min.js"></script>
+        <script>
+        function gen_url() {
+            var qrcode_div = document.getElementById('qrcode');
+            // clear old
+            if (qrcode_div.children.length > 0) {
+                qrcode_div.innerHTML = ''
+            }
+            var url = document.getElementById('url').value;
+            console.log(url);
+            if (!url.startsWith("http")) {
+                url = "http://" + url;
+            }
+            var qrcode = new QRCode("qrcode", {
+                text: url,
+                width: 256,
+                height: 256,
+                colorDark : "#000000",
+                colorLight : "#ffffff",
+                correctLevel : QRCode.CorrectLevel.H
+            });
+        }
+        </script>
+    </body>
+</html>
